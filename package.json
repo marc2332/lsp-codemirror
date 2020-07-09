@@ -1,7 +1,7 @@
 {
-  "name": "lsp-editor-adapter",
-  "version": "0.0.10",
-  "description": "Make your CodeMirror editor smarter by connecting to a language server",
+  "name": "lsp-codemirror",
+  "version": "0.1.0",
+  "description": "LSP client for CodeMirror",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "files": [

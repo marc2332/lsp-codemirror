@@ -3,3 +3,7 @@ dist
 lib
 .DS_Store
 coverage
+
+example/node_modules
+example/dist
+example/.cache
