@@ -72,7 +72,7 @@ interface lspServerOptions {
 }
 
 const html = {
-	serverUri: 'ws://localhost:3000/html',
+	serverUri: 'ws://localhost:3001/html',
 	languageId: 'html',
 	rootUri: `file:///${path.join(__dirname,'example-project')}`,
 	documentUri:  `file:///${path.join(__dirname,'example-project/project.html')}`,
@@ -80,7 +80,7 @@ const html = {
 };
 
 const js = {
-	serverUri: 'ws://localhost:3000/javascript',
+	serverUri: 'ws://localhost:3001/javascript',
 	languageId: 'javascript',
 	rootUri: `file:///${path.join(__dirname,'example-project')}`,
 	documentUri: `file:///${path.join(__dirname,'example-project/source.js')}`,
@@ -88,7 +88,7 @@ const js = {
 };
 
 const css = {
-	serverUri: 'ws://localhost:3000/css',
+	serverUri: 'ws://localhost:3001/css',
 	languageId: 'css',
 	rootUri: `file:///${path.join(__dirname,'example-project')}`,
 	documentUri: `file:///${path.join(__dirname,'example-project/styles.css')}`,

@@ -16,7 +16,7 @@ app.listen(4000, () => {
 app.use(express.static('dist'));
 
 new rpcWS({
-	port: 3000,
+	port: 3001,
 	languageServers:{
 		javascript:[
 			'node',

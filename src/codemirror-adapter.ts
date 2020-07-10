@@ -504,7 +504,8 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		this.tooltip.style.left = `${coords.x}px`;
 		this.tooltip.style.top = `${top}px`;
 		this.tooltip.appendChild(el);
-		document.body.appendChild(this.tooltip);
+		this.editor.getWrapperElement().appendChild(this.tooltip);
+
 
 		// Measure and reposition after rendering first version
 		requestAnimationFrame(() => {
