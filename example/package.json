@@ -5,10 +5,10 @@
 		"parcel": "parcel watch index.html"
 	},
 	"dependencies": {
-		"codemirror": "^5.47.0",
+		"codemirror": "^5.55.0",
 		"express": "^4.17.1",
 		"javascript-typescript-langserver": "^2.11.3",
-		"node-jsonrpc-lsp": "^0.1.0",
+		"node-jsonrpc-lsp": "^0.1.1",
 		"vscode-css-languageserver-bin": "^1.4.0",
 		"vscode-html-languageserver-bin": "^1.4.0"
 	},

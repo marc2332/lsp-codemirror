@@ -2,7 +2,9 @@
 
 LSP client for CodeMirror, **forked** from https://github.com/wylieconlon/lsp-editor-adapter (amazing work from Wylie )
 
-## Usage 
+To create a web socket server you can use: https://github.com/marc2332/node-jsonrpc-lsp
+
+## ✍🏻 Usage 
 
 **Note**: (not published in NPM, yet)
 
