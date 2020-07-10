@@ -30,7 +30,7 @@ module.exports = {
 	output: {
 		filename: '[name].js',
 		path: path.resolve(__dirname, 'lib'),
-		library: 'lsp-editor-adapter',
+		library: 'lsp-codemirror',
 		libraryTarget: 'umd'
 	},
 	externals: {
