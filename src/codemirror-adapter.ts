@@ -410,7 +410,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 	}
 
 	private _handleRightClick(ev: MouseEvent) {
-		console.log(this._isEventInsideVisible(ev) , this._isEventOnCharacter(ev)
 		if (!this._isEventInsideVisible(ev) || !this._isEventOnCharacter(ev)) {
 			return;
 		}
