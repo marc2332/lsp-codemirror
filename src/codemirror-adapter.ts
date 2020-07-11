@@ -387,7 +387,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		let isInsideSizer = false;
 		let target: HTMLElement = ev.target as HTMLElement;
 		while (target !== document.body) {
-			if (target.classList.contains('CodeMirror-sizer')) {
+			if (target.classList.contains('CodeMirror')) {
 				isInsideSizer = true;
 				break;
 			}
@@ -410,10 +410,14 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 	}
 
 	private _handleRightClick(ev: MouseEvent) {
+		console.log(this._isEventInsideVisible(ev) , this._isEventOnCharacter(ev)
 		if (!this._isEventInsideVisible(ev) || !this._isEventOnCharacter(ev)) {
 			return;
 		}
-
+		console.log(this.connection.isDefinitionSupported() ,
+			this.connection.isTypeDefinitionSupported() ,
+			this.connection.isReferencesSupported() ,
+			this.connection.isImplementationSupported())
 		if (
 			!this.connection.isDefinitionSupported() &&
 			!this.connection.isTypeDefinitionSupported() &&

@@ -74,24 +74,24 @@ interface lspServerOptions {
 const html = {
 	serverUri: 'ws://localhost:3001/html',
 	languageId: 'html',
-	rootUri: `file:///${path.join(__dirname,'example-project')}`,
-	documentUri:  `file:///${path.join(__dirname,'example-project/project.html')}`,
+	rootUri: `file://${path.join(__dirname,'example-project')}`,
+	documentUri:  `file://${path.join(__dirname,'example-project/project.html')}`,
 	documentText: () => htmlEditor.getValue(),
 };
 
 const js = {
 	serverUri: 'ws://localhost:3001/javascript',
 	languageId: 'javascript',
-	rootUri: `file:///${path.join(__dirname,'example-project')}`,
-	documentUri: `file:///${path.join(__dirname,'example-project/source.js')}`,
+	rootUri: `file://C:/Users/mespi/Projects/lsp-codemirror/example/example-project`,
+	documentUri: `file://C:/Users/mespi/Projects/lsp-codemirror/example/example-project/source.js`,
 	documentText: () => jsEditor.getValue(),
 };
 
 const css = {
 	serverUri: 'ws://localhost:3001/css',
 	languageId: 'css',
-	rootUri: `file:///${path.join(__dirname,'example-project')}`,
-	documentUri: `file:///${path.join(__dirname,'example-project/styles.css')}`,
+	rootUri: `file://${path.join(__dirname,'example-project')}`,
+	documentUri: `file://${path.join(__dirname,'example-project/styles.css')}`,
 	documentText: () => cssEditor.getValue(),
 };
 

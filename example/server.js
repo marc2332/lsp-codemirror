@@ -20,7 +20,7 @@ new rpcWS({
 	languageServers:{
 		javascript:[
 			'node',
-			'./node_modules/javascript-typescript-langserver/lib/language-server-stdio.js'
+			'C:/Users/mespi/Projects/Graviton-App/plugins/js-ts-langserver/wp/d.js'
 		],
 		html:[
 			'node',
