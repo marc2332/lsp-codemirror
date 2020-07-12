@@ -239,7 +239,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 	public handleGoTo(location: Location | Location[] | LocationLink[] | null) {
 		this._removeTooltip();
 
-		if (!location || location.length === 0) {
+		if (!location) {
 			return;
 		}
 
