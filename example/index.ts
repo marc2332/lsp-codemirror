@@ -82,8 +82,8 @@ const html = {
 const js = {
 	serverUri: 'ws://localhost:3001/javascript',
 	languageId: 'javascript',
-	rootUri: `file://C:/Users/mespi/Projects/lsp-codemirror/example/example-project`,
-	documentUri: `file://C:/Users/mespi/Projects/lsp-codemirror/example/example-project/source.js`,
+	rootUri: `file:///${path.join(__dirname,'example-project')}`,
+	documentUri:  `file:///${path.join(__dirname,'example-project/source.js')}`,
 	documentText: () => jsEditor.getValue(),
 };
 

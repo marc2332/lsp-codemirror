@@ -42,9 +42,14 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 
 		this._addListeners();
 	}
-
+	
+	public handleMouseLeave(ev: MouseEvent) {
+		this._removeHover();
+		this._removeTooltip();
+	}
+	
 	public handleMouseOver(ev: MouseEvent) {
-		if (this.isShowingContextMenu || !this._isEventInsideVisible(ev) || !this._isEventOnCharacter(ev)) {
+		if (!this._isEventInsideVisible(ev) || !this._isEventOnCharacter(ev)) {
 			return;
 		}
 
@@ -274,9 +279,8 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		this._removeHover();
 		this._removeTooltip();
 		// Show-hint addon doesn't remove itself. This could remove other uses in the project
-		document.querySelectorAll('.CodeMirror-hints').forEach((e) => e.remove());
+		this.cm.getWrapperElement().getElementsByClassName('CodeMirror-hints').forEach((e) => e.remove());
 		this.editor.off('change', this.editorListeners.change);
-		this.editor.off('cursorActivity', this.editorListeners.cursorActivity);
 		this.editor.off('cursorActivity', this.editorListeners.cursorActivity);
 		this.editor.getWrapperElement().removeEventListener('mousemove', this.editorListeners.mouseover);
 		this.editor.getWrapperElement().removeEventListener('contextmenu', this.editorListeners.contextmenu);
@@ -306,6 +310,11 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		Object.keys(this.connectionListeners).forEach((key) => {
 			this.connection.on(key as any, this.connectionListeners[key]);
 		});
+
+		const mouseLeaveListener = this.handleMouseLeave.bind(this);
+		this.editor.getWrapperElement().addEventListener('mouseleave', mouseLeaveListener);
+		this.editorListeners.mouseleave = mouseLeaveListener;
+
 
 		const mouseOverListener = this.handleMouseOver.bind(this);
 		this.editor.getWrapperElement().addEventListener('mousemove', mouseOverListener);
@@ -507,7 +516,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		this.tooltip.style.left = `${coords.x}px`;
 		this.tooltip.style.top = `${top}px`;
 		this.tooltip.appendChild(el);
-		this.editor.getWrapperElement().appendChild(this.tooltip);
+		document.body.appendChild(this.tooltip);
 
 
 		// Measure and reposition after rendering first version
@@ -518,6 +527,8 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			this.tooltip.style.left = `${coords.x}px`;
 			this.tooltip.style.top = `${top}px`;
 		});
+		
+		this.isShowingContextMenu = true
 	}
 
 	private _removeTooltip() {

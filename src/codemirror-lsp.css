@@ -11,12 +11,12 @@
 }
 
 .CodeMirror-lsp-tooltip {
-	position: fixed;
+	position: absolute;
 	font-size: 12px;
 	background: white;
 	border: 1px solid darkgray;
 	padding: 4px 6px;
-	z-index: 2;
+	z-index: 3;
 	border-radius: 3px;
 	max-width: 200px;
 }
