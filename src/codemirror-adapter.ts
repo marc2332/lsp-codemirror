@@ -279,7 +279,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		this._removeHover();
 		this._removeTooltip();
 		// Show-hint addon doesn't remove itself. This could remove other uses in the project
-		this.cm.getWrapperElement().getElementsByClassName('CodeMirror-hints').forEach((e) => e.remove());
+		this.editor.getWrapperElement().querySelectorAll('.CodeMirror-hints').forEach((e) => e.remove());
 		this.editor.off('change', this.editorListeners.change);
 		this.editor.off('cursorActivity', this.editorListeners.cursorActivity);
 		this.editor.getWrapperElement().removeEventListener('mousemove', this.editorListeners.mouseover);
@@ -311,11 +311,12 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			this.connection.on(key as any, this.connectionListeners[key]);
 		});
 
+				
 		const mouseLeaveListener = this.handleMouseLeave.bind(this);
 		this.editor.getWrapperElement().addEventListener('mouseleave', mouseLeaveListener);
 		this.editorListeners.mouseleave = mouseLeaveListener;
 
-
+		
 		const mouseOverListener = this.handleMouseOver.bind(this);
 		this.editor.getWrapperElement().addEventListener('mousemove', mouseOverListener);
 		this.editorListeners.mouseover = mouseOverListener;
