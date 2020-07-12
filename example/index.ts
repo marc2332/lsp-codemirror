@@ -6,17 +6,28 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/idea.css';
 import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/addon/hint/show-hint';
-import path from 'path'
 import '../src/codemirror-lsp.css';
 import { LspWsConnection, CodeMirrorAdapter } from '../src/index.ts';
+import path from 'path'
 
 const sampleJs = `
-let values = [15, 2, 7, 9, 17, 99, 50, 3];
-let total = 0;
-
-for (let i; i < values.length; i++) {
-total += values[i];
+function test(){
+  
+  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+test()
 `;
 
 const sampleHtml = `
@@ -39,6 +50,8 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubun
 color: blue;
 }
 `;
+
+const normalize = dir => dir.replace(/\\/gm,'/')
 
 const htmlEditor = CodeMirror(document.querySelector('.html'), {
 	theme: 'idea',
@@ -74,24 +87,24 @@ interface lspServerOptions {
 const html = {
 	serverUri: 'ws://localhost:3001/html',
 	languageId: 'html',
-	rootUri: `file://${path.join(__dirname,'example-project')}`,
-	documentUri:  `file://${path.join(__dirname,'example-project/project.html')}`,
+	rootUri: `file://${normalize(path.join(__dirname,'example-project'))}`,
+	documentUri:  `file://${normalize(path.join(__dirname,'example-project/project.html'))}`,
 	documentText: () => htmlEditor.getValue(),
 };
 
 const js = {
 	serverUri: 'ws://localhost:3001/javascript',
 	languageId: 'javascript',
-	rootUri: `file:///${path.join(__dirname,'example-project')}`,
-	documentUri:  `file:///${path.join(__dirname,'example-project/source.js')}`,
+	rootUri: `file:///${normalize(path.join(__dirname,'example-project'))}`,
+	documentUri:  `file:///${normalize(path.join(__dirname,'example-project/source.js'))}`,
 	documentText: () => jsEditor.getValue(),
 };
 
 const css = {
 	serverUri: 'ws://localhost:3001/css',
 	languageId: 'css',
-	rootUri: `file://${path.join(__dirname,'example-project')}`,
-	documentUri: `file://${path.join(__dirname,'example-project/styles.css')}`,
+	rootUri: `file://${normalize(path.join(__dirname,'example-project'))}`,
+	documentUri: `file://${normalize(path.join(__dirname,'example-project/styles.css'))}`,
 	documentText: () => cssEditor.getValue(),
 };
 

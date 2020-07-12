@@ -239,13 +239,12 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 	public handleGoTo(location: Location | Location[] | LocationLink[] | null) {
 		this._removeTooltip();
 
-		if (!location) {
+		if (!location || location.length === 0) {
 			return;
 		}
 
 		const documentUri = this.connection.getDocumentUri();
 		let scrollTo: IPosition;
-
 		if (lsProtocol.Location.is(location)) {
 			if (location.uri !== documentUri) {
 				return;
@@ -256,7 +255,9 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 				ch: location.range.start.character,
 			};
 		} else if ((location as any[]).every((l) => lsProtocol.Location.is(l))) {
-			const locations = (location as Location[]).filter((l) => l.uri === documentUri);
+			const locations = (location as Location[]).filter((l) => {
+				return l.uri === documentUri
+			});
 
 			this._highlightRanges(locations.map((l) => l.range));
 			scrollTo = {
@@ -310,7 +311,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		Object.keys(this.connectionListeners).forEach((key) => {
 			this.connection.on(key as any, this.connectionListeners[key]);
 		});
-
 				
 		const mouseLeaveListener = this.handleMouseLeave.bind(this);
 		this.editor.getWrapperElement().addEventListener('mouseleave', mouseLeaveListener);
@@ -335,6 +335,10 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		const clickOutsideListener = this._handleClickOutside.bind(this);
 		document.addEventListener('click', clickOutsideListener);
 		this.documentListeners.clickOutside = clickOutsideListener;
+		
+		const clickInsideListener = this._handleClickInside.bind(this);
+		this.editor.on('focus', clickInsideListener);
+		this.documentListeners.clickInside = clickInsideListener;
 	}
 
 	private _getTokenEndingAtPosition(code: string, location: IPosition, splitCharacters: string[]): ITokenInfo {
@@ -423,17 +427,12 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		if (!this._isEventInsideVisible(ev) || !this._isEventOnCharacter(ev)) {
 			return;
 		}
-		console.log(this.connection.isDefinitionSupported() ,
-			this.connection.isTypeDefinitionSupported() ,
-			this.connection.isReferencesSupported() ,
-			this.connection.isImplementationSupported())
-		if (
-			!this.connection.isDefinitionSupported() &&
-			!this.connection.isTypeDefinitionSupported() &&
-			!this.connection.isReferencesSupported() &&
-			!this.connection.isImplementationSupported()
-		) {
-			return;
+
+		if( !this.connection.isDefinitionSupported() && 
+		   !this.connection.isTypeDefinitionSupported() && 
+		   !this.connection.isReferencesSupported()
+		  ){
+			return
 		}
 
 		ev.preventDefault();
@@ -472,16 +471,17 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			});
 			htmlElement.appendChild(getReferences);
 		}
-
 		const coords = this.editor.charCoords(docPosition, 'page');
 		this._showTooltip(htmlElement, {
-			x: coords.left,
-			y: coords.bottom + this.editor.defaultTextHeight(),
+			x: ev.x-4,
+			y: ev.y+8,
 		});
-
-		this.isShowingContextMenu = true;
 	}
 
+	private _handleClickInside(ev: MouseEvent){
+		this._unhighlightRanges()
+	}
+	
 	private _handleClickOutside(ev: MouseEvent) {
 		if (this.isShowingContextMenu) {
 			let target: HTMLElement = ev.target as HTMLElement;
@@ -505,10 +505,8 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 
 	private _showTooltip(el: HTMLElement, coords: IScreenCoord) {
 		if (this.isShowingContextMenu) {
-			return;
+			this._removeTooltip();
 		}
-
-		this._removeTooltip();
 
 		let top = coords.y - this.editor.defaultTextHeight();
 
@@ -518,7 +516,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		this.tooltip.style.top = `${top}px`;
 		this.tooltip.appendChild(el);
 		document.body.appendChild(this.tooltip);
-
 
 		// Measure and reposition after rendering first version
 		requestAnimationFrame(() => {
@@ -556,13 +553,18 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		}
 	}
 
-	private _highlightRanges(items: lsProtocol.Range[]) {
+	private _unhighlightRanges() {
 		if (this.highlightMarkers) {
 			this.highlightMarkers.forEach((marker) => {
 				marker.clear();
 			});
 		}
 		this.highlightMarkers = [];
+	}
+	private _highlightRanges(items: lsProtocol.Range[]) {
+		
+		this._unhighlightRanges()
+		
 		if (!items.length) {
 			return;
 		}

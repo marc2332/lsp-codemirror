@@ -14,7 +14,7 @@
 	position: absolute;
 	font-size: 12px;
 	background: white;
-	border: 1px solid darkgray;
+	border: 1px solid rgb(65,65,65);
 	padding: 4px 6px;
 	z-index: 3;
 	border-radius: 3px;
@@ -23,7 +23,7 @@
 
 .CodeMirror-lsp-context > * {
 	padding: 5px;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid rgb(80,80,80);
 	cursor: pointer;
 }
 

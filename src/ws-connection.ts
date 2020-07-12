@@ -334,7 +334,6 @@ public getDefinition(location: IPosition) {
 	if (!this.isConnected || !this.isDefinitionSupported()) {
 		return;
 	}
-
 	this.connection.sendRequest('textDocument/definition', {
 		textDocument: {
 			uri: this.documentInfo.documentUri,
