@@ -7,7 +7,7 @@
 	height: 10px;
 	margin:2px;
 	border-radius: 50%;
-	background-color: #900;
+	background-color: #d23131;
 }
 
 .CodeMirror-lsp-tooltip {
@@ -19,6 +19,8 @@
 	z-index: 3;
 	border-radius: 3px;
 	max-width: 200px;
+	max-height: 200px;
+	overflow: auto;
 }
 
 .CodeMirror-lsp-context > * {

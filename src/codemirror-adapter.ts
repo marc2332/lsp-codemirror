@@ -106,6 +106,11 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			this._removeSignatureWidget();
 		}
 	}
+	
+	public handleScrollLeave(ev: MouseEvent){
+		this._removeHover();
+		this._removeTooltip();
+	}
 
 	public handleHover(response: lsProtocol.Hover) {
 		this._removeHover();
@@ -315,8 +320,11 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		const mouseLeaveListener = this.handleMouseLeave.bind(this);
 		this.editor.getWrapperElement().addEventListener('mouseleave', mouseLeaveListener);
 		this.editorListeners.mouseleave = mouseLeaveListener;
-
 		
+		const scrollListener = this.handleScrollLeave.bind(this);
+		this.editor.on('scroll', scrollListener);
+		this.editorListeners.mouseleave = scrollListener;
+
 		const mouseOverListener = this.handleMouseOver.bind(this);
 		this.editor.getWrapperElement().addEventListener('mousemove', mouseOverListener);
 		this.editorListeners.mouseover = mouseOverListener;
