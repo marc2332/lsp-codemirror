@@ -107,7 +107,12 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		}
 	}
 	
-	public handleScrollLeave(ev: MouseEvent){
+	public handleRefresh(){
+		this._removeHover();
+		this._removeTooltip();
+	}
+	
+	public handleScrollLeave(){
 		this._removeHover();
 		this._removeTooltip();
 	}
@@ -316,14 +321,18 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		Object.keys(this.connectionListeners).forEach((key) => {
 			this.connection.on(key as any, this.connectionListeners[key]);
 		});
-				
+		
+		const refreshListener = this.handleRefresh.bind(this);
+		this.editor.on('refreshed', refreshListener);
+		this.editorListeners.refresh = refreshListener;
+		
 		const mouseLeaveListener = this.handleMouseLeave.bind(this);
 		this.editor.getWrapperElement().addEventListener('mouseleave', mouseLeaveListener);
 		this.editorListeners.mouseleave = mouseLeaveListener;
 		
 		const scrollListener = this.handleScrollLeave.bind(this);
 		this.editor.on('scroll', scrollListener);
-		this.editorListeners.mouseleave = scrollListener;
+		this.editorListeners.scroll = scrollListener;
 
 		const mouseOverListener = this.handleMouseOver.bind(this);
 		this.editor.getWrapperElement().addEventListener('mousemove', mouseOverListener);
