@@ -13,7 +13,7 @@
 		"test-dev": "karma start --browsers Chrome --singleRun false --timeout 30000 --autoWatch",
 		"lint": "tslint --project tsconfig-test.json --format stylish",
 		"lint-fix": "tslint --project tsconfig-test.json --format stylish --fix",
-		"copy:css":"node scripts/build.js",
+		"copy:css": "node scripts/build.js",
 		"prepare": "rimraf lib && webpack && npm run copy:css",
 		"dev": "rimraf lib && webpack --watch"
 	},
@@ -44,6 +44,7 @@
 		"@types/node": "^12.0.7",
 		"@types/sinon": "^7.0.12",
 		"codemirror": "^5.47.0",
+		"copy": "^0.3.2",
 		"css-loader": "^2.1.1",
 		"expect": "^24.8.0",
 		"karma": "^4.1.0",
