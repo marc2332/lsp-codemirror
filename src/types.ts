@@ -219,7 +219,7 @@ export interface ITextEditorOptions {
 		comments: boolean;
 		strings: boolean;
 	};
-	contextMenuProvider?: (buttons: {label: String, action: () => void }[]) => any;
+	contextMenuProvider?: (ev: MouseEvent, buttons: {label: String, action: () => void }[]) => any;
 	/**
    * Quick suggestions show delay (in ms)
    * Defaults to 200 (ms)

@@ -479,7 +479,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 					action: () => this.connection.getReferences(docPosition)
 				})
 			}
-			this.options.contextMenuProvider(features)
+			this.options.contextMenuProvider(ev, features)
 		}else{
 			const htmlElement = document.createElement('div');
 			htmlElement.classList.add('CodeMirror-lsp-context');
