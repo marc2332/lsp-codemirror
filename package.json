@@ -1,6 +1,6 @@
 {
 	"name": "lsp-codemirror",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"description": "LSP client for CodeMirror",
 	"main": "lib/index.js",
 	"module": "lib/index.js",

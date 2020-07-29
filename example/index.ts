@@ -124,4 +124,7 @@ const jsConnection = new LspWsConnection(js).connect(new WebSocket(js.serverUri)
 
 const jsAdapter = new CodeMirrorAdapter(jsConnection, {
 	quickSuggestionsDelay: 75,
+	contextMenuProvider(buttons){
+		console.log(buttons)
+	}
 }, jsEditor);

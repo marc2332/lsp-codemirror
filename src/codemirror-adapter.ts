@@ -268,7 +268,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			const locations = (location as Location[]).filter((l) => {
 				return l.uri === documentUri
 			});
-
+			console.log(locations)
 			this._highlightRanges(locations.map((l) => l.range));
 			scrollTo = {
 				line: locations[0].range.start.line,
@@ -458,41 +458,65 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			left: ev.clientX,
 			top: ev.clientY,
 		}, 'window');
+		
+		if(this.options.contextMenuProvider){
+			let features: Array<{ label: String, action: any}> = []
+			if (this.connection.isDefinitionSupported()) {
+				features.push({
+					label: 'Go to Definition',
+					action: () => this.connection.getDefinition(docPosition)
+				})
+			}
+			if (this.connection.isTypeDefinitionSupported()) {
+				features.push({
+					label: 'Go to Type Definition',
+					action: () => this.connection.getTypeDefinition(docPosition)
+				})
+			}
+			if (this.connection.isReferencesSupported()) {
+				features.push({
+					label: 'Find all References',
+					action: () => this.connection.getReferences(docPosition)
+				})
+			}
+			this.options.contextMenuProvider(features)
+		}else{
+			const htmlElement = document.createElement('div');
+			htmlElement.classList.add('CodeMirror-lsp-context');
 
-		const htmlElement = document.createElement('div');
-		htmlElement.classList.add('CodeMirror-lsp-context');
+			if (this.connection.isDefinitionSupported()) {
+				const goToDefinition = document.createElement('div');
+				goToDefinition.innerText = 'Go to Definition';
+				goToDefinition.addEventListener('click', () => {
+					this.connection.getDefinition(docPosition);
+				});
+				htmlElement.appendChild(goToDefinition);
+			}
 
-		if (this.connection.isDefinitionSupported()) {
-			const goToDefinition = document.createElement('div');
-			goToDefinition.innerText = 'Go to Definition';
-			goToDefinition.addEventListener('click', () => {
-				this.connection.getDefinition(docPosition);
+			if (this.connection.isTypeDefinitionSupported()) {
+				const goToTypeDefinition = document.createElement('div');
+				goToTypeDefinition.innerText = 'Go to Type Definition';
+				goToTypeDefinition.addEventListener('click', () => {
+					this.connection.getTypeDefinition(docPosition);
+				});
+				htmlElement.appendChild(goToTypeDefinition);
+			}
+
+			if (this.connection.isReferencesSupported()) {
+				const getReferences = document.createElement('div');
+				getReferences.innerText = 'Find all References';
+				getReferences.addEventListener('click', () => {
+					this.connection.getReferences(docPosition);
+				});
+				htmlElement.appendChild(getReferences);
+			}
+			const coords = this.editor.charCoords(docPosition, 'page');
+			this._showTooltip(htmlElement, {
+				x: ev.x-4,
+				y: ev.y+8,
 			});
-			htmlElement.appendChild(goToDefinition);
 		}
-
-		if (this.connection.isTypeDefinitionSupported()) {
-			const goToTypeDefinition = document.createElement('div');
-			goToTypeDefinition.innerText = 'Go to Type Definition';
-			goToTypeDefinition.addEventListener('click', () => {
-				this.connection.getTypeDefinition(docPosition);
-			});
-			htmlElement.appendChild(goToTypeDefinition);
-		}
-
-		if (this.connection.isReferencesSupported()) {
-			const getReferences = document.createElement('div');
-			getReferences.innerText = 'Find all References';
-			getReferences.addEventListener('click', () => {
-				this.connection.getReferences(docPosition);
-			});
-			htmlElement.appendChild(getReferences);
-		}
-		const coords = this.editor.charCoords(docPosition, 'page');
-		this._showTooltip(htmlElement, {
-			x: ev.x-4,
-			y: ev.y+8,
-		});
+		
 	}
 
 	private _handleClickInside(ev: MouseEvent){
