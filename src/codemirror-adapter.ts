@@ -268,7 +268,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			const locations = (location as Location[]).filter((l) => {
 				return l.uri === documentUri
 			});
-			console.log(locations)
 			this._highlightRanges(locations.map((l) => l.range));
 			scrollTo = {
 				line: locations[0].range.start.line,
@@ -400,9 +399,11 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			return items;
 		}
 		const word = triggerWord.toLowerCase();
-		return items.filter((item: lsProtocol.CompletionItem) => {
+		const a = items.filter((item: lsProtocol.CompletionItem) => {
 			if (item.filterText && item.filterText.toLowerCase().indexOf(word) === 0) {
 				return true;
+			} else if( item.label.toLowerCase() === word) {
+				return false
 			} else {
 				return item.label.toLowerCase().indexOf(word) === 0;
 			}
@@ -411,6 +412,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			const inB = b.label.indexOf(triggerWord) === 0 ? 1 : -1;
 			return inA + inB;
 		});
+		return a
 	}
 
 	private _isEventInsideVisible(ev: MouseEvent) {
@@ -621,7 +623,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			} as CodeMirror.Position;
 
 			this.highlightMarkers.push(this.editor.getDoc().markText(start, end, {
-				css: 'background-color: #dde',
+				className: 'CodeMirror-lsp-highlight',
 			}));
 		});
 	}

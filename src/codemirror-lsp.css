@@ -2,6 +2,10 @@
 	width: 10px;
 }
 
+.CodeMirror-lsp-highlight{
+	 background: rgba(150,220,150, 0.5);
+}
+
 .CodeMirror-lsp-guttermarker {
 	width: 10px;
 	height: 10px;
