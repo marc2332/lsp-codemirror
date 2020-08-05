@@ -161,8 +161,6 @@ public sendInitialize() {
 					dynamicRegistration: true,
 				},
 			} as lsProtocol.WorkspaceClientCapabilities,
-			// xfilesProvider: true,
-			// xcontentProvider: true,
 		} as lsProtocol.ClientCapabilities,
 		initializationOptions: null,
 		processId: null,

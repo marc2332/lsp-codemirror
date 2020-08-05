@@ -6,6 +6,10 @@
 	 background: rgba(150,220,150, 0.5);
 }
 
+.CodeMirror-lsp-hover{
+	 text-decoration: underline;
+}
+
 .CodeMirror-lsp-guttermarker {
 	width: 10px;
 	height: 10px;

@@ -138,7 +138,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			} as CodeMirror.Position;
 
 			this.hoverMarker = this.editor.getDoc().markText(start, end, {
-				css: 'text-decoration: underline',
+				className: 'CodeMirror-lsp-hover'
 			});
 		}
 
@@ -147,6 +147,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			tooltipText = response.contents.value;
 		} else if (Array.isArray(response.contents)) {
 			const firstItem = response.contents[0];
+			console.log(firstItem, response)
 			if (MarkupContent.is(firstItem)) {
 				tooltipText = firstItem.value;
 			} else if (firstItem === null) {
