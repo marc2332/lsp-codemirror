@@ -395,11 +395,11 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 	triggerWord: string,
 	 items: lsProtocol.CompletionItem[],
 	): lsProtocol.CompletionItem[] {
-		if (/\W+/.test(triggerWord)) {
+		if (/\W+/.test(triggerWord.trim())) {
 			return items;
 		}
-		const word = triggerWord.toLowerCase();
-		const a = items.filter((item: lsProtocol.CompletionItem) => {
+		const word = triggerWord.toLowerCase().trim();
+		return items.filter((item: lsProtocol.CompletionItem) => {
 			if (item.filterText && item.filterText.toLowerCase().indexOf(word) === 0) {
 				return true;
 			} else if( item.label.toLowerCase() === word) {
@@ -412,7 +412,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			const inB = b.label.indexOf(triggerWord) === 0 ? 1 : -1;
 			return inA + inB;
 		});
-		return a
 	}
 
 	private _isEventInsideVisible(ev: MouseEvent) {
