@@ -17,7 +17,7 @@ describe('CodeMirror adapter', () => {
 
   beforeEach(() => {
     clock = sinon.useFakeTimers();
-
+    document.body.style.padding = '20px'
     editorEl = document.createElement('div');
     document.body.appendChild(editorEl);
     editor = CodeMirror(editorEl);
@@ -114,8 +114,8 @@ describe('CodeMirror adapter', () => {
     it('should not request hover when hover is outside visible code area', () => {
       // This should be way outside the valid area
       editor.getWrapperElement().dispatchEvent(new MouseEvent('mousemove', {
-        clientX: 500,
-        clientY: 500,
+        clientX: 0,
+        clientY: 0,
         bubbles: true,
       }));
 
@@ -384,8 +384,8 @@ describe('CodeMirror adapter', () => {
       expect(document.querySelectorAll('.CodeMirror-hint').length).toEqual(2);
       expect(document.querySelectorAll('.CodeMirror-hint')[0].textContent).toEqual('length');
 
-      const el = editorEl.querySelector('textarea');
-      el.focus();
+      const el = editor.getWrapperElement()
+      editor.focus();
       el.dispatchEvent(new KeyboardEvent('keydown', {
         key: 'Enter',
         // @ts-ignore: Deprecated property used by CodeMirror

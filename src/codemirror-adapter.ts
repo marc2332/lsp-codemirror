@@ -180,7 +180,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		}
 
 		const bestCompletions = this._getFilteredCompletions(this.token.text, completions);
-
+		console.log(bestCompletions)
 		let start = this.token.start;
 		if (/^\W$/.test(this.token.text)) {
 			// Special case for completion on the completion trigger itself, the completion goes after
@@ -399,8 +399,9 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		if (/\W+/.test(triggerWord.trim())) {
 			return items;
 		}
+		console.log(triggerWord)
 		const word = triggerWord.toLowerCase().trim();
-		return items.filter((item: lsProtocol.CompletionItem) => {
+		const a = items.filter((item: lsProtocol.CompletionItem) => {
 			if (item.filterText && item.filterText.toLowerCase().indexOf(word) === 0) {
 				return true;
 			} else if( item.label.toLowerCase() === word) {
@@ -413,6 +414,8 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			const inB = b.label.indexOf(triggerWord) === 0 ? 1 : -1;
 			return inA + inB;
 		});
+		console.log(a)
+		return a
 	}
 
 	private _isEventInsideVisible(ev: MouseEvent) {
