@@ -31,7 +31,7 @@
 	"dependencies": {
 		"kind-of": "^6.0.3",
 		"lodash-es": "^4.17.15",
-		"serialize-javascript": "^2.1.1",
+		"serialize-javascript": "^3.1.0",
 		"set-value": "^2.0.1",
 		"vscode-jsonrpc": "^5.0.1",
 		"vscode-languageclient": "^6.1.3",
