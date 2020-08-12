@@ -207,7 +207,6 @@ public sendChange() {
 }
 
 public getHoverTooltip(location: IPosition) {
-	console.log(location)
 	if (!this.isInitialized) {
 		return;
 	}

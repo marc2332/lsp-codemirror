@@ -71,15 +71,12 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 	public handleChange(cm: CodeMirror.Editor, change: CodeMirror.EditorChange) {
 		const location = this.editor.getDoc().getCursor('end');
 		this.connection.sendChange();
-
 		const completionCharacters = this.connection.getLanguageCompletionCharacters();
 		const signatureCharacters = this.connection.getLanguageSignatureCharacters();
-
-		const code = this.editor.getDoc().getValue();
-		const lines = code.split('\n');
-		const line = lines[location.line];
+		const code = this.editor.getValue()
+		const line = this.editor.getLine(location.line)
 		const typedCharacter = line[location.ch - 1];
-
+		console.log(typedCharacter)
 		if (typeof typedCharacter === 'undefined') {
 			// Line was cleared
 			this._removeSignatureWidget();
@@ -147,7 +144,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			tooltipText = response.contents.value;
 		} else if (Array.isArray(response.contents)) {
 			const firstItem = response.contents[0];
-			console.log(firstItem, response)
 			if (MarkupContent.is(firstItem)) {
 				tooltipText = firstItem.value;
 			} else if (firstItem === null) {
@@ -180,7 +176,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		}
 
 		const bestCompletions = this._getFilteredCompletions(this.token.text, completions);
-		console.log(bestCompletions)
 		let start = this.token.start;
 		if (/^\W$/.test(this.token.text)) {
 			// Special case for completion on the completion trigger itself, the completion goes after
@@ -399,7 +394,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		if (/\W+/.test(triggerWord.trim())) {
 			return items;
 		}
-		console.log(triggerWord)
 		const word = triggerWord.toLowerCase().trim();
 		const a = items.filter((item: lsProtocol.CompletionItem) => {
 			if (item.filterText && item.filterText.toLowerCase().indexOf(word) === 0) {
@@ -414,7 +408,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			const inB = b.label.indexOf(triggerWord) === 0 ? 1 : -1;
 			return inA + inB;
 		});
-		console.log(a)
 		return a
 	}
 
