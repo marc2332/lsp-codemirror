@@ -8,6 +8,7 @@ import 'setimmediate';
 import Rect from './icons/rect.svg'
 import Tri from './icons/tri.svg'
 import Circle from './icons/circle.svg'
+import SmallRect from './icons/small_rect.svg'
 
 interface IScreenCoord {
 	x: number;
@@ -211,12 +212,14 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 	}
 	private _getIconByKind(kind: number){
 		switch(kind){
-				case 3:
+			case 3:
 				return Rect
-				case 14:
+			case 14:
 				return Tri
-				default:
+			case 6:
 				return Circle
+			default:
+				return SmallRect
 		}
 	}
 	public handleDiagnostic(response: lsProtocol.PublishDiagnosticsParams) {
