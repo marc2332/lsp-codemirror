@@ -31,6 +31,18 @@
 	overflow: auto;
 }
 
+.CodeMirror-lsp-hint {
+	display: flex;
+	padding-right: 7px;
+}
+
+.CodeMirror-lsp-hint > img {
+	display: flex;
+	width: 11px; 
+	min-width: 11px;
+	margin-right: 4px;
+}
+
 .CodeMirror-lsp-context > * {
 	padding: 5px;
 	border-bottom: 1px solid rgb(80,80,80);

@@ -1,11 +1,13 @@
 /// <reference types="@types/codemirror" />
-/// <reference types="@types/codemirror/codemirror-showhint" />
 
 import debounce from 'lodash-es/debounce';
 import * as lsProtocol from 'vscode-languageserver-protocol';
 import { Location, LocationLink, MarkupContent } from 'vscode-languageserver-protocol';
 import { getFilledDefaults, IEditorAdapter, ILspConnection, IPosition, ITextEditorOptions, ITokenInfo } from './types';
 import 'setimmediate';
+import Rect from './icons/rect.svg'
+import Tri from './icons/tri.svg'
+import Circle from './icons/circle.svg'
 
 interface IScreenCoord {
 	x: number;
@@ -76,7 +78,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		const code = this.editor.getValue()
 		const line = this.editor.getLine(location.line)
 		const typedCharacter = line[location.ch - 1];
-		console.log(typedCharacter)
 		if (typeof typedCharacter === 'undefined') {
 			// Line was cleared
 			this._removeSignatureWidget();
@@ -181,19 +182,43 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			// Special case for completion on the completion trigger itself, the completion goes after
 			start = this.token.end;
 		}
-
-		this.editor.showHint({
+		(this.editor as any).showHint({
 			completeSingle: false,
 			hint: () => {
 				return {
 					from: start,
 					to: this.token.end,
-					list: bestCompletions.map((completion) => completion.label),
+					list: bestCompletions.map(({ label, kind }) => {
+						return {
+							text: label,
+							displayText: label,
+							render: (element: HTMLElement) => {
+								const con = document.createElement('div')
+								con.classList.add('CodeMirror-lsp-hint')
+								const text = document.createElement('span')
+								const img = document.createElement('img')
+								text.innerText = label
+								img.src = this._getIconByKind(kind)
+								con.append(img)
+								con.append(text)
+								element.append(con)
+							}
+						}
+					}),
 				};
 			},
-		} as CodeMirror.ShowHintOptions);
+		});
 	}
-
+	private _getIconByKind(kind: number){
+		switch(kind){
+				case 3:
+				return Rect
+				case 14:
+				return Tri
+				default:
+				return Circle
+		}
+	}
 	public handleDiagnostic(response: lsProtocol.PublishDiagnosticsParams) {
 		this.editor.clearGutter('CodeMirror-lsp');
 		this.markedDiagnostics.forEach((marker) => {
@@ -394,20 +419,21 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		if (/\W+/.test(triggerWord.trim())) {
 			return items;
 		}
-		const word = triggerWord.toLowerCase().trim();
+		const word = triggerWord.trim();
 		const a = items.filter((item: lsProtocol.CompletionItem) => {
-			if (item.filterText && item.filterText.toLowerCase().indexOf(word) === 0) {
+			if (item.filterText && item.filterText.indexOf(word) === 0) {
 				return true;
-			} else if( item.label.toLowerCase() === word) {
+			} else if( item.label === word) {
 				return false
 			} else {
-				return item.label.toLowerCase().indexOf(word) === 0;
+				return item.label.indexOf(word) === 0;
 			}
 		}).sort((a: lsProtocol.CompletionItem, b: lsProtocol.CompletionItem) => {
 			const inA = (a.label.indexOf(triggerWord) === 0) ? -1 : 1;
 			const inB = b.label.indexOf(triggerWord) === 0 ? 1 : -1;
 			return inA + inB;
 		});
+    console.log(a)
 		return a
 	}
 

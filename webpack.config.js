@@ -8,20 +8,33 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.tsx?$/,
+				test: /\.ts?$/,
 				use: 'ts-loader',
 				exclude: /node_modules/
-			}, {
-				test: /\.css$/,
+			},  
+			{
+				test: /\.(woff(2)?|ttf|eot|png|jpe?g|svg)(\?v=\d+\.\d+\.\d+)?$/,
+				include: path.resolve(__dirname, 'src'),
 				use: [
-					{ loader: 'style-loader' },
-					{ loader: 'css-loader' }
-				]
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+							outputPath: 'icons/',
+						},
+					},
+					{
+						loader: 'image-webpack-loader',
+						options: {
+							disable: true,
+						},
+					},
+				],
 			}
 		]
 	},
 	resolve: {
-		extensions: [ '.tsx', '.ts', '.js' ]
+		extensions: [ '.ts', '.js' ]
 	},
 	target: 'web',
 	node: {
