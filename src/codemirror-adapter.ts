@@ -421,10 +421,10 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 	triggerWord: string,
 	 items: lsProtocol.CompletionItem[],
 	): lsProtocol.CompletionItem[] {
-		if (/\W+/.test(triggerWord.trim())) {
+		const word = triggerWord.split(' ')[0];
+		if (/\W+/.test(word)) {
 			return items;
 		}
-		const word = triggerWord.trim();
 		return items.filter((item: lsProtocol.CompletionItem) => {
 			if (item.filterText && item.filterText.indexOf(word) === 0) {
 				return true;
