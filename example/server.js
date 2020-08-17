@@ -20,7 +20,8 @@ new rpcWS({
 	languageServers:{
 		typescript:[
 			'node',
-			'./node_modules/javascript-typescript-langserver/lib/language-server-stdio.js',
+			'./node_modules/typescript-language-server/lib/cli.js',
+			'--stdio'
 		],
 		html:[
 			'node',

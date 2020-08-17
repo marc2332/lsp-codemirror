@@ -419,11 +419,11 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 
 	private _getFilteredCompletions(
 	triggerWord: string,
-	 items: lsProtocol.CompletionItem[],
+	 items: lsProtocol.CompletionItem[] = [],
 	): lsProtocol.CompletionItem[] {
 		const word = triggerWord.split(' ')[0];
 		if (/\W+/.test(word)) {
-			return items;
+			return [];
 		}
 		return items.filter((item: lsProtocol.CompletionItem) => {
 			if (item.filterText && item.filterText.indexOf(word) === 0) {

@@ -77,7 +77,7 @@ const tsEditor = CodeMirror(document.querySelector('.ts'), {
 	gutters: ['CodeMirror-lsp'],
 });
 
-tsEditor.on('lsp/diagnostics',data => console.log(data))
+//tsEditor.on('lsp/diagnostics',data => console.log(data))
 
 const html = {
 	serverUri: 'ws://localhost:3001/html',
