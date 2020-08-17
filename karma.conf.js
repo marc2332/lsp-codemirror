@@ -1,4 +1,5 @@
 process.env.CHROME_BIN = require('puppeteer').executablePath()
+const path = require('path')
 
 module.exports = function(config) {
 	config.set({
@@ -56,11 +57,30 @@ module.exports = function(config) {
 							{ loader: 'style-loader' },
 							{ loader: 'css-loader' }
 						]
+					},  
+					{
+						test: /\.(woff(2)?|ttf|eot|png|jpe?g|svg)(\?v=\d+\.\d+\.\d+)?$/,
+						include: path.resolve(__dirname, 'src'),
+						use: [
+							{
+								loader: 'file-loader',
+								options: {
+									name: '[name].[ext]',
+									outputPath: 'icons/',
+								},
+							},
+							{
+								loader: 'image-webpack-loader',
+								options: {
+									disable: true,
+								},
+							},
+						]
 					}
 				]
 			},
 			resolve: {
-				extensions: [ '.tsx', '.ts', '.js' ]
+				extensions: [ '.ts', '.js' ]
 			},
 			target: 'web',
 			node: {
