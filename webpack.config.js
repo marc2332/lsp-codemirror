@@ -34,7 +34,8 @@ module.exports = {
 		]
 	},
 	resolve: {
-		extensions: [ '.ts', '.js' ]
+		extensions: [ '.ts', '.js' ],
+		symlinks: false
 	},
 	target: 'web',
 	node: {

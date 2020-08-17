@@ -9,7 +9,7 @@ import Rect from './icons/rect.svg'
 import Tri from './icons/tri.svg'
 import Circle from './icons/circle.svg'
 import SmallRect from './icons/small_rect.svg'
-import CodeMirror from 'CodeMirror'
+import * as CodeMirror from 'codemirror'
 
 interface IScreenCoord {
 	x: number;
