@@ -1,6 +1,6 @@
 {
 	"name": "lsp-codemirror",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "LSP client for CodeMirror",
 	"main": "lib/index.js",
 	"module": "lib/index.js",
@@ -25,10 +25,8 @@
 		"codemirror"
 	],
 	"repository": "github:marc2332/lsp-codemirror",
-	"peerDependencies": {
-		"codemirror": "^5.55.0"
-	},
 	"dependencies": {
+		"codemirror": "^5.56.0",
 		"kind-of": "^6.0.3",
 		"lodash-es": "^4.17.15",
 		"serialize-javascript": "^3.1.0",
