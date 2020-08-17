@@ -18,7 +18,7 @@ app.use(express.static('dist'));
 new rpcWS({
 	port: 3001,
 	languageServers:{
-		javascript:[
+		typescript:[
 			'node',
 			'./node_modules/javascript-typescript-langserver/lib/language-server-stdio.js',
 		],

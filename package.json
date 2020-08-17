@@ -1,6 +1,6 @@
 {
 	"name": "lsp-codemirror",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "LSP client for CodeMirror",
 	"main": "lib/index.js",
 	"module": "lib/index.js",
@@ -21,7 +21,7 @@
 	"license": "ISC",
 	"keywords": [
 		"lsp",
-		"languageserver",
+		"languageclient",
 		"codemirror"
 	],
 	"repository": "github:marc2332/lsp-codemirror",
@@ -67,8 +67,8 @@
 		"svg-url-loader": "^6.0.0",
 		"ts-loader": "^6.0.2",
 		"tslint": "^5.17.0",
-		"typescript": "^3.5.1",
-		"webpack": "^4.33.0",
-		"webpack-cli": "^3.3.2"
+		"typescript": "^3.9.7",
+		"webpack": "^4.44.1",
+		"webpack-cli": "^3.3.12"
 	}
 }

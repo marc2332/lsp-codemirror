@@ -9,6 +9,7 @@ import Rect from './icons/rect.svg'
 import Tri from './icons/tri.svg'
 import Circle from './icons/circle.svg'
 import SmallRect from './icons/small_rect.svg'
+import CodeMirror from 'CodeMirror'
 
 interface IScreenCoord {
 	x: number;
@@ -46,7 +47,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 		this._addListeners();
 	}
 	
-	public handleMouseLeave(ev: MouseEvent) {
+	public handleMouseLeave() {
 		this._removeHover();
 		this._removeTooltip();
 	}
@@ -141,7 +142,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			});
 		}
 
-		let tooltipText;
+		let tooltipText: string;
 		if (MarkupContent.is(response.contents)) {
 			tooltipText = response.contents.value;
 		} else if (Array.isArray(response.contents)) {
@@ -228,6 +229,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			marker.clear();
 		});
 		this.markedDiagnostics = [];
+		CodeMirror.signal(this.editor,'lsp/diagnostics', response.diagnostics)
 		response.diagnostics.forEach((diagnostic: lsProtocol.Diagnostic) => {
 			const start = {
 				line: diagnostic.range.start.line,
@@ -423,7 +425,7 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			return items;
 		}
 		const word = triggerWord.trim();
-		const a = items.filter((item: lsProtocol.CompletionItem) => {
+		return items.filter((item: lsProtocol.CompletionItem) => {
 			if (item.filterText && item.filterText.indexOf(word) === 0) {
 				return true;
 			} else if( item.label === word) {
@@ -436,8 +438,6 @@ class CodeMirrorAdapter extends IEditorAdapter<CodeMirror.Editor> {
 			const inB = b.label.indexOf(triggerWord) === 0 ? 1 : -1;
 			return inA + inB;
 		});
-    console.log(a)
-		return a
 	}
 
 	private _isEventInsideVisible(ev: MouseEvent) {

@@ -7,10 +7,10 @@ import 'codemirror/theme/idea.css';
 import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/addon/hint/show-hint';
 import '../src/codemirror-lsp.css';
-import { LspWsConnection, CodeMirrorAdapter } from '../src/index.ts';
+import { LspWsConnection, CodeMirrorAdapter } from '../src/index';
 import path from 'path'
 
-const sampleJs = `
+const sampleTs = `
 function test(){
   
   
@@ -69,20 +69,15 @@ const cssEditor = CodeMirror(document.querySelector('.css'), {
 	gutters: ['CodeMirror-lsp'],
 });
 
-const jsEditor = CodeMirror(document.querySelector('.js'), {
+const tsEditor = CodeMirror(document.querySelector('.ts'), {
 	theme: 'idea',
 	lineNumbers: true,
-	mode: 'javascript',
-	value: sampleJs,
+	mode: 'text/typescript',
+	value: sampleTs,
 	gutters: ['CodeMirror-lsp'],
 });
 
-interface lspServerOptions {
-	rootPath: string;
-	htmlPath: string;
-	cssPath: string;
-	jsPath: string;
-}
+tsEditor.on('lsp/diagnostics',data => console.log(data))
 
 const html = {
 	serverUri: 'ws://localhost:3001/html',
@@ -92,12 +87,12 @@ const html = {
 	documentText: () => htmlEditor.getValue(),
 };
 
-const js = {
-	serverUri: 'ws://localhost:3001/javascript',
-	languageId: 'javascript',
+const ts = {
+	serverUri: 'ws://localhost:3001/typescript',
+	languageId: 'typescript',
 	rootUri: `file:///${normalize(path.join(__dirname,'example-project'))}`,
-	documentUri:  `file:///${normalize(path.join(__dirname,'example-project/source.js'))}`,
-	documentText: () => jsEditor.getValue(),
+	documentUri:  `file:///${normalize(path.join(__dirname,'example-project/source.ts'))}`,
+	documentText: () => tsEditor.getValue(),
 };
 
 const css = {
@@ -120,8 +115,8 @@ const cssAdapter = new CodeMirrorAdapter(cssConnection, {
 	quickSuggestionsDelay: 75,
 }, cssEditor);
 
-const jsConnection = new LspWsConnection(js).connect(new WebSocket(js.serverUri));
+const tsConnection = new LspWsConnection(ts).connect(new WebSocket(ts.serverUri));
 
-const jsAdapter = new CodeMirrorAdapter(jsConnection, {
+const tsAdapter = new CodeMirrorAdapter(tsConnection, {
 	quickSuggestionsDelay: 75
-}, jsEditor);
+}, tsEditor);
