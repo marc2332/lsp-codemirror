@@ -1,6 +1,5 @@
-<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-<mask id="path-1-inside-1" fill="white">
-<rect width="30" height="30" rx="2"/>
-</mask>
-<rect width="30" height="30" rx="2" stroke="#4C9FEB" stroke-width="10" mask="url(#path-1-inside-1)"/>
+<svg width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 5L15 0L30 5V27L15 32L0 27V5Z" fill="#378DDD"/>
+<path d="M15 0L30 5L15 9L0 5L15 0Z" fill="white" fill-opacity="0.5"/>
+<path d="M0 5L15 9V32L0 27.0588V5Z" fill="white" fill-opacity="0.17"/>
 </svg>
