@@ -26,6 +26,7 @@
 	],
 	"repository": "github:marc2332/lsp-codemirror",
 	"dependencies": {
+		"bl": "^4.0.3",
 		"codemirror": "^5.56.0",
 		"kind-of": "^6.0.3",
 		"lodash-es": "^4.17.15",
