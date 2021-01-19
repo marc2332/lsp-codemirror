@@ -2,6 +2,11 @@
 
 LSP client for CodeMirror, intends to be a more updated and better version of the original client --> https://github.com/wylieconlon/lsp-editor-adapter (thanks to Wylie :D )
 
+## 🤔 Differences
+- Autocompletion improvements
+- Built-in icons
+- Support for custom autocompletion dropmenus
+
 ## 🤖 Installation
 
 ```shell
