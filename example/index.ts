@@ -90,8 +90,8 @@ const html = {
 const ts = {
 	serverUri: 'ws://localhost:3001/typescript',
 	languageId: 'typescript',
-	rootUri: `file:///${normalize(path.join(__dirname,'example-project'))}`,
-	documentUri:  `file:///${normalize(path.join(__dirname,'example-project/source.ts'))}`,
+	rootUri: `file://${normalize(path.join(__dirname,'example-project'))}`,
+	documentUri:  `file://${normalize(path.join(__dirname,'example-project/source.ts'))}`,
 	documentText: () => tsEditor.getValue(),
 };
 
