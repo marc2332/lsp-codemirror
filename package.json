@@ -58,7 +58,7 @@
 		"karma-webpack": "^4.0.0-rc.6",
 		"minimist": "^1.2.3",
 		"mocha": "^6.1.4",
-		"node-forge": "^0.10.0",
+		"node-forge": "^1.0.0",
 		"puppeteer": "^1.17.0",
 		"rimraf": "^2.6.3",
 		"sinon": "^7.3.2",
