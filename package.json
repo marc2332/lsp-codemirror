@@ -57,7 +57,7 @@
 		"karma-mocha-reporter": "^2.2.5",
 		"karma-webpack": "^4.0.0-rc.6",
 		"minimist": "^1.2.3",
-		"mocha": "^6.1.4",
+		"mocha": "^10.1.0",
 		"node-forge": "^1.0.0",
 		"puppeteer": "^1.17.0",
 		"rimraf": "^2.6.3",
