@@ -7,7 +7,7 @@
 	"files": [
 		"lib"
 	],
-	"types": "lib/index.d.ts",
+	"types": "lib/src/index.d.ts",
 	"scripts": {
 		"test": "karma start",
 		"test-dev": "karma start --browsers Chrome --singleRun false --timeout 30000 --autoWatch",
