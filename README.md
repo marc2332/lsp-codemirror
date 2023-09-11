@@ -1,3 +1,7 @@
+# ⚠️ **>UNMAINTAINED<** ⚠️ 
+
+You can use this alternative (not very much up to date anyway): https://github.com/FurqanSoftware/codemirror-languageserver
+
 ## ✨ lsp-codemirror
 
 LSP client for CodeMirror, intends to be a more updated and better version of the original client --> https://github.com/wylieconlon/lsp-editor-adapter (thanks to Wylie :D )
