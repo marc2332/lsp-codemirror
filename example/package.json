@@ -13,7 +13,7 @@
 		"vscode-html-languageserver-bin": "^1.4.0"
 	},
 	"devDependencies": {
-		"parcel": "^1.12.4",
+		"parcel": "^2.9.3",
 		"npm-run-all": "^4.1.5"
 	}
 }
