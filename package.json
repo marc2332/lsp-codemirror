@@ -47,7 +47,7 @@
 		"@types/sinon": "^7.0.12",
 		"codemirror": "^5.47.0",
 		"copy": "^0.3.2",
-		"css-loader": "^2.1.1",
+		"css-loader": "^6.8.1",
 		"expect": "^24.8.0",
 		"file-loader": "^6.0.0",
 		"image-webpack-loader": "^6.0.0",
